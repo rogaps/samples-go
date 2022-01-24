@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+package wallet;
+
+option go_package = "github.com/temporalio/samples-go/trading/proto/wallet";
+
+enum TransactionStatus {
+  PENDING = 0;
+  FAILED = 1;
+  SUCCESS = 2;
+}
+
+enum TradingSide {
+  BUY = 0;
+  SELL = 1;
+}
+
+message CreateTradingRequest {
+  string base_asset_type = 1;
+  string quote_asset_type = 2;
+  TradingSide side = 3;
+  string base_amount = 4;
+  string quote_amount = 5;
+}
+
+message CreateTradingResponse {
+  string transaction_id = 1;
+  TransactionStatus status = 2;
+}
+
+message ConfirmTransactionRequest {
+  string transaction_id = 1;
+}
+
+message ConfirmTransactionResponse {
+  string transaction_id = 1;
+  TransactionStatus status = 2;
+}
+
+service WalletService {
+  rpc CreateTradingTransaction(CreateTradingRequest) returns (CreateTradingResponse) {}
+  rpc ConfirmTransaction(ConfirmTransactionRequest) returns (ConfirmTransactionResponse) {}
+  rpc RejectTransaction(ConfirmTransactionRequest) returns (ConfirmTransactionResponse) {}
+}

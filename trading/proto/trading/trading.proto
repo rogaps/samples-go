@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package trading;
+
+option go_package = "github.com/temporalio/samples-go/trading/proto/trading";
+
+enum TradingSide {
+  BUY = 0;
+  SELL = 1;
+}
+
+enum TransactionStatus {
+  PENDING = 0;
+  FAILED = 1;
+  SUCCESS = 2;
+}
+
+message CreateTradingRequest {
+  string base_asset_type = 1;
+  string quote_asset_type = 2;
+  TradingSide side = 3;
+  string amount = 4;
+  string amount_asset_type = 5;
+}
+
+message CreateTradingResponse {
+  string transaction_id = 1;
+  string base_asset_type = 2;
+  string quote_asset_type = 3;
+  TradingSide side = 4;
+  string amount = 5;
+  string amount_asset_type = 6;
+  string total = 7;
+  string total_asset_type = 8;
+}
+
+message CommitTradingRequest {
+  string transaction_id = 1;
+}
+
+message CommitTradingResponse {
+  string transaction_id = 1;
+  TransactionStatus status = 2;
+}
+
+message RegisterActivityRequest {
+  string id = 1;
+  string task_token = 2;
+}
+
+message RegisterActivityResponse {}
+
+service TradingService {
+  rpc CreateTrading(CreateTradingRequest) returns (CreateTradingResponse) {}
+  rpc CommitTrading(CommitTradingRequest) returns (CommitTradingResponse) {}
+  rpc RegisterActivity(RegisterActivityRequest) returns (RegisterActivityResponse) {}
+}

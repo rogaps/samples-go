@@ -3,8 +3,10 @@ module github.com/temporalio/samples-go
 go 1.16
 
 require (
+	github.com/go-redis/redis/v8 v8.11.4
 	github.com/golang/mock v1.6.0
 	github.com/golang/snappy v0.0.4
+	github.com/google/uuid v1.3.0
 	github.com/hashicorp/go-plugin v1.4.3
 	github.com/opentracing/opentracing-go v1.2.0
 	github.com/pborman/uuid v1.2.1
@@ -18,6 +20,8 @@ require (
 	go.temporal.io/sdk/contrib/tally v0.1.0
 	go.temporal.io/server v1.14.1
 	go.uber.org/zap v1.19.1
+	google.golang.org/grpc v1.42.0
+	google.golang.org/protobuf v1.27.1
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
 	gopkg.in/square/go-jose.v2 v2.6.0
 	gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b

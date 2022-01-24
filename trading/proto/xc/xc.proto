@@ -1,0 +1,43 @@
+syntax = "proto3";
+
+package xc;
+
+option go_package = "github.com/temporalio/samples-go/trading/proto/xc";
+
+enum TradingSide {
+  BUY = 0;
+  SELL = 1;
+}
+
+message GetExchangeAmountRequest {
+  string base_asset_type = 1;
+  string quote_asset_type = 2;
+  TradingSide side = 3;
+  string amount = 4;
+  string amount_asset_type = 5;
+}
+
+message GetExchangeAmountResponse {
+  string base_asset_type = 1;
+  string quote_asset_type = 2;
+  TradingSide side = 3;
+  string base_amount = 4;
+  string quote_amount = 5;
+}
+
+message PlaceOrderRequest {
+  string base_asset_type = 1;
+  string quote_asset_type = 2;
+  TradingSide side = 3;
+  string base_amount = 4;
+  string quote_amount = 5;
+}
+
+message PlaceOrderResponse {
+  string order_id = 1;
+}
+
+service XcService {
+  rpc GetExchangeAmount(GetExchangeAmountRequest) returns (GetExchangeAmountResponse) {}
+  rpc PlaceOrder(PlaceOrderRequest) returns (PlaceOrderResponse) {}
+}
